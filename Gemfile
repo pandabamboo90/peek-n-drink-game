@@ -54,3 +54,15 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# CMS
+gem 'trestle', '~> 0.9.3'
+
+# Store file
+gem 'carrierwave', '~> 2.0'
+gem 'fog'
+gem 'fog-aws'
+gem 'mini_magick', '~> 4.10', '>= 4.10.1'
+
+# AWS
+gem "aws-sdk-s3"
