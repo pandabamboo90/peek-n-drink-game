@@ -7,6 +7,9 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import '../stylesheets/application'; // This file will contain your custom CSS
+import 'bootstrap';
+require("jquery")
 
 Rails.start()
 Turbolinks.start()

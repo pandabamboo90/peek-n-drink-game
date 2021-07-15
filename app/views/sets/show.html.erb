@@ -1,0 +1,15 @@
+<% @cards.each do |card| %>
+  <div class="card-wrapper flip-right <%= card.no %>">
+    <div class="card">
+      <div class="front" onclick="clickCard(this)"><%= card.no %></div>
+      <div class="back">
+        <%= image_tag card.image.thumb.url %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+  function clickCard(el) {
+    $(el).parent().parent().addClass('active')
+  }
+</script>
