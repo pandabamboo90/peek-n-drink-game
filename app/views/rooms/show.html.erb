@@ -1,0 +1,23 @@
+<% @set&.cards&.each do |card| %>
+  <div class="card-wrapper flip-right <%= 'active' if @room.card_no.include?(card.no.to_s) %>" id="<%= card.no %>">
+    <div class="card">
+      <div class="front" onclick="<%= 'clickCard(this)' if !@room.card_no.include?(card.no.to_s) %>"><%= card.no %></div>
+      <div class="back">
+        <%= image_tag card.image.thumb.url %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+  function clickCard(el) {
+    var id = $(el).parent().parent().attr('id')
+    $.ajax({
+      url: '/pick_card',
+      type: 'POST',
+      data: {
+        room_id: <%= @room.id %>,
+        card_id: id
+      }
+    });
+  }
+</script>
