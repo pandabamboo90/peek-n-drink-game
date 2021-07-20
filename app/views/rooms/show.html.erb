@@ -1,13 +1,28 @@
-<% @set&.cards&.each do |card| %>
-  <div class="card-wrapper flip-right <%= 'active' if @room.card_no.include?(card.no.to_s) %>" id="<%= card.no %>">
-    <div class="card">
-      <div class="front" onclick="<%= 'clickCard(this)' if !@room.card_no.include?(card.no.to_s) %>"><%= card.no %></div>
-      <div class="back">
-        <%= image_tag card.image.thumb.url %>
+<div id='shuffle-card'>
+  <div onclick="shuffleCard(<%= @room.set_card&.id %>)" style='color: lightblue; cursor: pointer;'>
+    Shuffle card
+  </div>
+</div>
+
+<br/>
+
+<div>
+  <%= select_tag :tenant_id, options_for_select(@sets.collect { |set| [set.title, set.id] }, selected: @room.set_card&.id), { onchange: "shuffleCard(this.value)", include_blank: true } %>
+</div>
+
+<div class="list-card">
+  <% @cards&.each_with_index do |card, index| %>
+    <div class="card-wrapper flip-right <%= 'active' if @room.card_ids.include?(card.id.to_s) %>" id="<%= card.id %>">
+      <div class="card">
+        <div class="front" onclick="<%= 'clickCard(this)' if !@room.card_ids.include?(card.id.to_s) %>"><%= index + 1 %></div>
+        <div class="back">
+          <%= image_tag card.image.thumb.url %>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
+
 <script>
   function clickCard(el) {
     var id = $(el).parent().parent().attr('id')
@@ -19,5 +34,18 @@
         card_id: id
       }
     });
+  }
+
+  function shuffleCard(id) {
+    if (id) {
+      $.ajax({
+        url: '/shuffle_card',
+        type: 'POST',
+        data: {
+          room_id: <%= @room.id %>,
+          set_id: id
+        }
+      });
+    }
   }
 </script>

@@ -12,6 +12,26 @@ consumer.subscriptions.create({
   },
   received: function(data) {
     // Called when there's incoming data on the websocket for this channel
-    $("#" + data['card_id']).addClass('active')
+    if (data["shuffle"]) {
+      var shuffleContent = "<div onclick='shuffleCard(" + data["set_id"] + ")' id='shuffle-card' style='color: lightblue; cursor: pointer;'>Shuffle card</div>";
+      var html = "";
+
+      $.each(data["cards"], function(index, value) {
+        html += "<div class='card-wrapper flip-right' id='" + value["id"] + "'>" +
+          "<div class='card'>" +
+            "<div class='front' onclick='clickCard(this)'>" + (index + 1) + "</div>" +
+              "<div class='back'>" +
+                "<image src=" + value['image'].thumb.url + "></image>" +
+              "</div>" +
+            "</div>" +
+          "</div>" +
+        "</div>";
+      })
+
+      $('.list-card').html(html);
+      $('#shuffle-card').html(shuffleContent);
+    } else {
+      $("#" + data['card_id']).addClass('active');
+    }
   }
 });

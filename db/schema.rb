@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_19_120255) do
+ActiveRecord::Schema.define(version: 2021_07_20_085625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 2021_07_19_120255) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "no"
     t.index ["set_card_id"], name: "index_cards_on_set_card_id"
   end
 
@@ -30,7 +29,8 @@ ActiveRecord::Schema.define(version: 2021_07_19_120255) do
     t.integer "amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "card_no", default: [], array: true
+    t.text "card_ids", default: [], array: true
+    t.text "list_cards", default: [], array: true
     t.index ["set_card_id"], name: "index_rooms_on_set_card_id"
   end
 

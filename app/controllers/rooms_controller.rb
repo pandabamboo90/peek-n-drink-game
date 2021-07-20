@@ -6,11 +6,11 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
 
-    if params[:set_id].present?
-      @room.update(set_card_id: params[:set_id])
+    @cards = if @room.set_card.present? && !@room.list_cards.empty?
+      Card.find(@room.list_cards).sort_by{ |card| @room.list_cards.index card.id }
     end
 
-    @set = @room.set_card
+    @sets = SetCard.all
   end
 
   def leave_room
